@@ -10,15 +10,18 @@ async function startApolloServer() {
     resolvers,
   });
 
-  const { url } = await startStandaloneServer(server, {
-    context: async () => {
-      return {
-        dataSources: {
-          trackAPI: new TrackAPI(),
-        },
-      };
-    },
-  });
+const { url } = await startStandaloneServer(server, {
+  context: async () => {
+    return {
+      dataSources: {
+        trackAPI: new TrackAPI(),
+      },
+    };
+  },
+  listen: {
+    port: process.env.PORT || 4000,
+  },
+});
 
   console.log(`
       🚀  Server is running
